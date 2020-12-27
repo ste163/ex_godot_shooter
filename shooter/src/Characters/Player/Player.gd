@@ -7,8 +7,6 @@ export var mouse_sensitivity: float = 0.5
 # $ is shorthand for that node.
 onready var _camera = $Camera
 
-var _move_vec: Vector3 = Vector3()
-
 # what to load before starting game
 func _ready() -> void:
 	# hide mouse cursor and lock it to center of screen
@@ -32,6 +30,7 @@ func _mouseInput(event: InputEvent) -> void:
 	_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
 	
 func _movementInputs() -> void:
+	var _move_vec: Vector3
 	if Input.is_action_pressed("move_forward"):
 		_move_vec += Vector3.FORWARD
 	if Input.is_action_pressed("move_backward"):
@@ -40,8 +39,6 @@ func _movementInputs() -> void:
 		_move_vec += Vector3.LEFT
 	if Input.is_action_pressed("move_right"):
 		_move_vec += Vector3.RIGHT
-		
-	set_move_vec(_move_vec)
-	
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_pressed("jump"):
 		jump()
+	set_move_vec(_move_vec)

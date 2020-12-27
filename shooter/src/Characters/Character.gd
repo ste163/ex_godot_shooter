@@ -21,18 +21,21 @@ func _ready() -> void:
 	_drag = move_accel / max_speed
 
 func _physics_process(delta: float) -> void:
-	var cur_move_vec = move_vec # direction we're facing
+	_calc_movement(delta)
+
+func _calc_movement(delta: float) -> void:
+	var _cur_move_vec: Vector3 = move_vec # direction we're facing
 	var _grounded: bool = self.is_on_floor()
 	
 	if _frozen:
 		return
 	if not ignore_rotation:
-		cur_move_vec = cur_move_vec.rotated(Vector3.UP, self.rotation.y)
+		_cur_move_vec = _cur_move_vec.rotated(Vector3.UP, self.rotation.y)
 	#Velocity is how many units we move per second
 	#Times our acceleration by where we're facing
 	#Drag the velocity down on the horizontal axes
 	#Add Gravity
-	_velocity += (move_accel * cur_move_vec) - (_velocity * Vector3(_drag, 0, _drag)) + gravity * Vector3.DOWN * delta 
+	_velocity += (move_accel * _cur_move_vec) - (_velocity * Vector3(_drag, 0, _drag)) + (gravity * Vector3.DOWN * delta)
 	_velocity = self.move_and_slide_with_snap(_velocity, _snap_vec, Vector3.UP)
 	if _grounded:
 		_velocity.y = -0.01 #Ensures we stay on ground each frame
