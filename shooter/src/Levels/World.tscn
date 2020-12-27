@@ -5,10 +5,6 @@
 [ext_resource path="res://src/Characters/Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://raw_assets/raw_textures/grass_lowres.png" type="Texture" id=4]
 
-
-
-
-
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 4 )
 uv1_scale = Vector3( 50, 50, 1 )

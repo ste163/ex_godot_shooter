@@ -24,6 +24,14 @@ config/name="Shooter"
 run/main_scene="res://src/Levels/World.tscn"
 config/icon="res://icon.png"
 
+[debug]
+
+gdscript/warnings/unsafe_method_access=true
+
+[display]
+
+window/size/fullscreen=true
+
 [importer_defaults]
 
 texture={

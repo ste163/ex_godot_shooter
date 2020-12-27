@@ -6,7 +6,8 @@ export var mouse_sensitivity: float = 0.5
 # wait for it to load before continuing.
 # $ is shorthand for that node.
 onready var _camera = $Camera
-var _move_vect: Vector3 = Vector3()
+
+var _move_vec: Vector3 = Vector3()
 
 # what to load before starting game
 func _ready() -> void:
@@ -14,7 +15,7 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)	
 
 # _process runs every frame, delta is time since last frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_movementInputs()
 
 func _input(event: InputEvent) -> void:
@@ -32,10 +33,15 @@ func _mouseInput(event: InputEvent) -> void:
 	
 func _movementInputs() -> void:
 	if Input.is_action_pressed("move_forward"):
-		_move_vect += Vector3.FORWARD
+		_move_vec += Vector3.FORWARD
 	if Input.is_action_pressed("move_backward"):
-		_move_vect += Vector3.BACK
-	if Input.action_press("move_left"):
-		_move_vect += Vector3.LEFT
-	if Input.action_press("move_right"):
-		_move_vect += Vector3.RIGHT
+		_move_vec += Vector3.BACK
+	if Input.is_action_pressed("move_left"):
+		_move_vec += Vector3.LEFT
+	if Input.is_action_pressed("move_right"):
+		_move_vec += Vector3.RIGHT
+		
+	set_move_vec(_move_vec)
+	
+	if Input.is_action_just_pressed("jump"):
+		jump()
