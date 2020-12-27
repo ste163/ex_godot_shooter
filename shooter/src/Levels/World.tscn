@@ -83,4 +83,4 @@ shadow_color = Color( 0.552941, 0.552941, 0.552941, 1 )
 directional_shadow_mode = 0
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.12144, 4.44639 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0347109, 2.13541, 4.49537 )

@@ -1,6 +1,6 @@
 extends Character
 
-export var mouse_sensitivity: float = 0.5
+export var mouse_sensitivity: float = 0.2
 
 #onready means get something from current scene, and
 # wait for it to load before continuing.

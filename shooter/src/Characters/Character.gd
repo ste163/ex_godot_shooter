@@ -5,7 +5,7 @@ export var move_accel: float = 4.0
 export var max_speed: float = 25.0
 var _drag: float = 0.0
 export var jump_force: float  = 30.0
-export var gravity: float = 60.0
+export var gravity: float = 65.0
 
 var _pressed_jump: bool = false
 var move_vec: Vector3
