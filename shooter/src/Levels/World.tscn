@@ -2,8 +2,11 @@
 
 [ext_resource path="res://assets/environment/shed.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/environment/brickwall.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/player/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://raw_assets/textures_raw/grass_lowres.png" type="Texture" id=4]
+[ext_resource path="res://src/Characters/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://raw_assets/raw_textures/grass_lowres.png" type="Texture" id=4]
+
+
+
 
 
 [sub_resource type="SpatialMaterial" id=1]

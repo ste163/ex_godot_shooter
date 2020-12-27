@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Plateau.glb-055acecd40a3cd714245a142119a2264.scn"
+path="res://.import/Plateau.glb-2e70e582bb4e3004b3cca4d040e3bf74.scn"
 
 [deps]
 
-source_file="res://raw_assets/meshes_raw/Plateau.glb"
-dest_files=[ "res://.import/Plateau.glb-055acecd40a3cd714245a142119a2264.scn" ]
+source_file="res://raw_assets/raw_meshes/Plateau.glb"
+dest_files=[ "res://.import/Plateau.glb-2e70e582bb4e3004b3cca4d040e3bf74.scn" ]
 
 [params]
 
