@@ -1,0 +1,9 @@
+# Godot-specific
+.import/
+
+# Mono
+.mono/
+.vs/
+
+# Mine
+assets/
