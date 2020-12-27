@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/brickwall.glb-60f594563bff779841805ba7e708632d.scn"
+path="res://.import/shed.glb-232cb881db899be2f2428aa395422153.scn"
 
 [deps]
 
-source_file="res://environment/assets_raw/meshes/brickwall.glb"
-dest_files=[ "res://.import/brickwall.glb-60f594563bff779841805ba7e708632d.scn" ]
+source_file="res://raw_assets/meshes_raw/shed.glb"
+dest_files=[ "res://.import/shed.glb-232cb881db899be2f2428aa395422153.scn" ]
 
 [params]
 

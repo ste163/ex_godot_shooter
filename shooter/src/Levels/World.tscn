@@ -1,12 +1,13 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://environment/assets_raw/textures_raw/grass_lowres.png" type="Texture" id=1]
-[ext_resource path="res://environment/assets/brickwall.tscn" type="PackedScene" id=2]
-[ext_resource path="res://environment/assets/shed.tscn" type="PackedScene" id=3]
-[ext_resource path="res://player/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/environment/shed.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/environment/brickwall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://raw_assets/textures_raw/grass_lowres.png" type="Texture" id=4]
+
 
 [sub_resource type="SpatialMaterial" id=1]
-albedo_texture = ExtResource( 1 )
+albedo_texture = ExtResource( 4 )
 uv1_scale = Vector3( 50, 50, 1 )
 
 [sub_resource type="CubeMesh" id=2]
@@ -63,7 +64,7 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12, 1, 
 [node name="brickwall6" parent="Environment" instance=ExtResource( 2 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12, 1, 1 )
 
-[node name="shed" parent="Environment" instance=ExtResource( 3 )]
+[node name="shed" parent="Environment" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.00035, 1.00079, 1.99973 )
 
 [node name="Navigation" type="Navigation" parent="."]
@@ -82,5 +83,5 @@ shadow_enabled = true
 shadow_color = Color( 0.552941, 0.552941, 0.552941, 1 )
 directional_shadow_mode = 0
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
+[node name="Player" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.12144, 4.44639 )
