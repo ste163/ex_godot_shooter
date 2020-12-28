@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/Managers/ManagerHealth.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://src/Characters/Player/ManagerWeapon.gd" type="Script" id=4]
 [ext_resource path="res://raw_assets/raw_meshes_weapons/machinegun.glb" type="PackedScene" id=5]
 [ext_resource path="res://raw_assets/raw_meshes_weapons/shotgun.glb" type="PackedScene" id=6]
+[ext_resource path="res://raw_assets/raw_meshes_weapons/rocketlauncher.glb" type="PackedScene" id=7]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -183,6 +184,63 @@ tracks/1/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
+[sub_resource type="Animation" id=8]
+resource_name = "Attack"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Graphics:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0.551933 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Graphics:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 8.431, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Idle"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Graphics:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1.31951, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.02, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Graphics:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
 [node name="Player" type="KinematicBody"]
 collision_layer = 2147483654
 collision_mask = 3
@@ -206,10 +264,9 @@ script = ExtResource( 4 )
 
 [node name="Machete" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
 transform = Transform( -0.185095, 0, -6.03115e-08, 0, 0.185095, 0, 6.03115e-08, 0, -0.185095, 0.171074, -0.212483, -0.259124 )
-visible = false
 
 [node name="Graphics" type="Spatial" parent="Camera/ManagerWeapon/Weapons/Machete"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.996508, -0.0823175, -0.0140198, 0.0827859, 0.951974, 0.294776, -0.0109187, -0.294907, 0.955464, -0.0838493, 0.730302, -0.128313 )
 
 [node name="machete" parent="Camera/ManagerWeapon/Weapons/Machete/Graphics" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
@@ -234,6 +291,7 @@ anims/Idle = SubResource( 5 )
 
 [node name="Shotgun" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
 transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0.0879056, -0.152788, -0.0881764 )
+visible = false
 
 [node name="Graphics" type="Spatial" parent="Camera/ManagerWeapon/Weapons/Shotgun"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
@@ -246,7 +304,18 @@ anims/Attack = SubResource( 6 )
 anims/Idle = SubResource( 7 )
 
 [node name="RocketLauncher" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
+transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0.228678, -0.064787, -0.186285 )
 visible = false
+
+[node name="Graphics" type="Spatial" parent="Camera/ManagerWeapon/Weapons/RocketLauncher"]
+transform = Transform( 0.534776, 0, 0, 0, 0.534776, 0, 0, 0, 0.534776, 0, 0, 0 )
+
+[node name="rocketlauncher" parent="Camera/ManagerWeapon/Weapons/RocketLauncher/Graphics" instance=ExtResource( 7 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/ManagerWeapon/Weapons/RocketLauncher"]
+autoplay = "Idle"
+anims/Attack = SubResource( 8 )
+anims/Idle = SubResource( 9 )
 
 [node name="ManagerHealth" parent="." instance=ExtResource( 2 )]
 [connection signal="dead" from="ManagerHealth" to="." method="_on_ManagerHealth_dead"]
