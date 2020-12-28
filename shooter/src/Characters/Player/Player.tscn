@@ -266,7 +266,7 @@ script = ExtResource( 4 )
 transform = Transform( -0.185095, 0, -6.03115e-08, 0, 0.185095, 0, 6.03115e-08, 0, -0.185095, 0.171074, -0.212483, -0.259124 )
 
 [node name="Graphics" type="Spatial" parent="Camera/ManagerWeapon/Weapons/Machete"]
-transform = Transform( 0.996508, -0.0823175, -0.0140198, 0.0827859, 0.951974, 0.294776, -0.0109187, -0.294907, 0.955464, -0.0838493, 0.730302, -0.128313 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="machete" parent="Camera/ManagerWeapon/Weapons/Machete/Graphics" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
@@ -308,7 +308,7 @@ transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0.228678, -0.06478
 visible = false
 
 [node name="Graphics" type="Spatial" parent="Camera/ManagerWeapon/Weapons/RocketLauncher"]
-transform = Transform( 0.534776, 0, 0, 0, 0.534776, 0, 0, 0, 0.534776, 0, 0, 0 )
+transform = Transform( 0.534776, 0, 0, 0, 0.534776, 0, 0, 0, 0.534776, 0, 0.0132225, 0 )
 
 [node name="rocketlauncher" parent="Camera/ManagerWeapon/Weapons/RocketLauncher/Graphics" instance=ExtResource( 7 )]
 
