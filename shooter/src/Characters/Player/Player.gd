@@ -6,15 +6,25 @@ export var mouse_sensitivity: float = 0.2
 # wait for it to load before continuing.
 # $ is shorthand for that node.
 onready var _camera = $Camera
+onready var _manager_health = $ManagerHealth
+
+var dead: bool = false
+
+func _on_ManagerHealth_dead() -> void:
+	died()
 
 # what to load before starting game
 func _ready() -> void:
 	# hide mouse cursor and lock it to center of screen
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)	
+	_manager_health.init()
 
 # _process runs every frame, delta is time since last frame.
 func _process(_delta: float) -> void:
-	_movementInputs()
+	if dead:
+		return
+	else:
+		_movementInputs()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -42,3 +52,13 @@ func _movementInputs() -> void:
 	if Input.is_action_pressed("jump"):
 		jump()
 	set_move_vec(_move_vec)
+	
+func hurt(damage: int, dir: Vector3) -> void:
+	_manager_health.hurt(damage, dir)
+	
+func heal(amount: int) -> void:
+	_manager_health.heal(amount)
+
+func died() -> void:
+	dead = true
+	freeze() # stop player from moving when dead

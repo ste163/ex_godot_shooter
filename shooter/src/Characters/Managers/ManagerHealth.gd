@@ -14,7 +14,7 @@ export var gib_at: int = -10
 func _ready() -> void:
 	_init()
 	
-func _init() -> void:
+func init() -> void:
 	_cur_health = max_health
 	emit_signal("health_changed", _cur_health)
 
@@ -29,9 +29,11 @@ func hurt(damage: int, dir: Vector3) -> void:
 			emit_signal("gibbed")
 		if _cur_health <= 0: #Checked twice in case they die after damage subtracted
 			emit_signal("dead")
+			print('died')
 		else:
 			emit_signal("hurt")
 		emit_signal("health_changed", _cur_health)
+		print('hurt by: ', damage, 'current health: ', _cur_health)
 
 func heal(amount: int) -> void:
 	if _cur_health <= 0:
