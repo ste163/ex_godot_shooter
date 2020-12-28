@@ -1,11 +1,26 @@
 extends Character
 
+#weapon hotkeys
+var hotkeys: Dictionary = {
+	KEY_1: 0,
+	KEY_2: 1,
+	KEY_3: 2,
+	KEY_4: 3,
+	KEY_5: 4,
+	KEY_6: 5,
+	KEY_7: 6,
+	KEY_8: 7,
+	KEY_9: 8,
+	KEY_0: 9
+}
+
 export var mouse_sensitivity: float = 0.2
 
 #onready means get something from current scene, and
 	#wait for it to load before continuing.
 onready var _camera = $Camera
 onready var _manager_health = $ManagerHealth
+onready var _manager_weapon = $Camera/ManagerWeapon
 
 var dead: bool = false
 
@@ -28,6 +43,10 @@ func _process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		_mouseInput(event)
+	if event is InputEventKey and event.pressed:
+		_hotkeyInput(event)
+	if event is InputEventMouseButton and event.pressed:
+		_scrollWheelInput(event)
 
 func _mouseInput(event: InputEvent) -> void:
 	# get how much the mouse has moved on the x axis, times mouse sens
@@ -52,6 +71,16 @@ func _movementInputs() -> void:
 		jump()
 		
 	set_move_vec(_move_vec)
+	
+func _hotkeyInput(event: InputEvent) -> void:
+	if event.scancode in hotkeys: #scancode is KEY_1 etc, they're built-ins
+		_manager_weapon.switch_to_weapon_slot(hotkeys[event.scancode])
+
+func _scrollWheelInput(event: InputEvent) -> void:
+	if event.button_index == BUTTON_WHEEL_DOWN:
+		_manager_weapon.switch_to_next_weapon()
+	elif event.button_index == BUTTON_WHEEL_UP:
+		_manager_weapon.switch_to_last_weapon()
 
 #named the same as the health manager methods
 func hurt(damage: int, dir: Vector3) -> void:
