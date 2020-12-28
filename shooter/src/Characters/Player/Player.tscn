@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/Managers/ManagerHealth.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/Characters/Managers/ManagerWeapon.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Weapons/Machete.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Characters/Player/ManagerWeapon.gd" type="Script" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -23,10 +24,19 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0 )
 fov = 80.0
 
-[node name="ManagerWeapon" parent="Camera" instance=ExtResource( 3 )]
-transform = Transform( 0.983626, 0, 0, 0, 0.983626, 0, 0, 0, 0.983626, 0, 0.024807, -0.468534 )
+[node name="ManagerWeapon" type="Spatial" parent="Camera"]
+script = ExtResource( 4 )
 
 [node name="Weapons" type="Spatial" parent="Camera/ManagerWeapon"]
+
+[node name="Machete" parent="Camera/ManagerWeapon/Weapons" instance=ExtResource( 3 )]
+transform = Transform( -0.3, 0, -4.52987e-08, 0, 0.3, 0, 4.52987e-08, 0, -0.3, 0.204735, -0.335454, -0.382991 )
+
+[node name="MachineGun" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
+
+[node name="Shotgun" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
+
+[node name="RocketLauncher" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
 
 [node name="ManagerHealth" parent="." instance=ExtResource( 2 )]
 [connection signal="dead" from="ManagerHealth" to="." method="_on_ManagerHealth_dead"]
