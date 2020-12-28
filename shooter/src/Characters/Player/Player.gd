@@ -3,8 +3,7 @@ extends Character
 export var mouse_sensitivity: float = 0.2
 
 #onready means get something from current scene, and
-# wait for it to load before continuing.
-# $ is shorthand for that node.
+	#wait for it to load before continuing.
 onready var _camera = $Camera
 onready var _manager_health = $ManagerHealth
 
@@ -51,8 +50,10 @@ func _movementInputs() -> void:
 		_move_vec += Vector3.RIGHT
 	if Input.is_action_pressed("jump"):
 		jump()
+		
 	set_move_vec(_move_vec)
-	
+
+#named the same as the health manager methods
 func hurt(damage: int, dir: Vector3) -> void:
 	_manager_health.hurt(damage, dir)
 	
