@@ -46,7 +46,6 @@ func switch_to_weapon_slot(slot_index: int) -> void:
 		return #if we haven't unlocked that slot, do nothing
 	disable_all_weapons()
 	cur_weapon = weapons[slot_index]
-	print(cur_weapon.name)
 	if cur_weapon.has_method("set_active"):
 		cur_weapon.set_active()
 	else:
