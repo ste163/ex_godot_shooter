@@ -18,11 +18,17 @@ func _ready() -> void:
 	
 func switch_to_next_weapon() -> void:
 	cur_slot = switch_to_slot("next")
-	slots_unlocked[cur_slot] if not switch_to_next_weapon() else switch_to_weapon_slot(cur_slot)
+	if not slots_unlocked[cur_slot]:
+		switch_to_next_weapon()
+	else:
+		switch_to_weapon_slot(cur_slot)
 
 func switch_to_last_weapon() -> void:
 	cur_slot = switch_to_slot("last")
-	slots_unlocked[cur_slot] if not switch_to_last_weapon() else switch_to_weapon_slot(cur_slot)
+	if not slots_unlocked[cur_slot]:
+		switch_to_last_weapon()
+	else:
+		 switch_to_weapon_slot(cur_slot)
 
 func switch_to_slot(method_name: String) -> int:
 	match method_name:
