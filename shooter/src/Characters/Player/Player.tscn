@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/Managers/ManagerHealth.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://raw_assets/raw_meshes_flash/muzzleflash1.glb" type="PackedScene" id=11]
 [ext_resource path="res://raw_assets/raw_meshes_flash/muzzleflash3.glb" type="PackedScene" id=12]
 [ext_resource path="res://src/Characters/Player/BulletRotater.gd" type="Script" id=13]
+[ext_resource path="res://src/Weapons/MeleeDamageArea.tscn" type="PackedScene" id=14]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -31,7 +32,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( -0.0838493, 0.730302, -0.128313 ), Vector3( 0.0608531, 0.0816636, -0.214218 ), Vector3( 0, 0, 0 ) ]
+"values": [ Vector3( -0.0347041, 0.161954, 0.0477521 ), Vector3( 0.0608531, 0.0816636, -0.214218 ), Vector3( 0, 0, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Graphics:rotation_degrees")
@@ -269,11 +270,15 @@ script = ExtResource( 4 )
 [node name="Weapons" type="Spatial" parent="Camera/ManagerWeapon"]
 
 [node name="Machete" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
-transform = Transform( -0.185095, 0, -6.03115e-08, 0, 0.185095, 0, 6.03115e-08, 0, -0.185095, 0.171074, -0.212483, -0.259124 )
-visible = false
+transform = Transform( -1, 0, -3.89414e-07, 0, 1, 0, 3.89414e-07, 0, -1, 0.171074, -0.212483, -0.259124 )
+script = ExtResource( 9 )
+automatic = true
+damage = 15
+ammo = 10000000000000
+attack_rate = 0.4
 
 [node name="Graphics" type="Spatial" parent="Camera/ManagerWeapon/Weapons/Machete"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0, 0, 0 )
 
 [node name="machete" parent="Camera/ManagerWeapon/Weapons/Machete/Graphics" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
@@ -282,6 +287,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 autoplay = "Idle"
 anims/Attack = SubResource( 3 )
 anims/Idle = SubResource( 2 )
+
+[node name="BulletEmitters" type="Spatial" parent="Camera/ManagerWeapon/Weapons/Machete"]
+transform = Transform( 1, 0, -5.68434e-14, 0, 1, 0, 5.68434e-14, 0, 1, 0.149596, 0.253531, 0.991069 )
+
+[node name="MeleeDamageArea" parent="Camera/ManagerWeapon/Weapons/Machete/BulletEmitters" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, -8.52651e-14, 0, 1, 0, 8.52651e-14, 0, 1, 0, 0, 0 )
 
 [node name="MachineGun" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
 transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0.146565, -0.204998, -0.0973653 )
@@ -382,6 +393,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0271371 )
 
 [node name="ManagerHealth" parent="." instance=ExtResource( 2 )]
 [connection signal="fired" from="Camera/ManagerWeapon/Weapons/MachineGun" to="Camera/ManagerWeapon/Weapons/MachineGun/Graphics/MuzzleFlash" method="_on_MachineGun_fired"]
-[connection signal="fired" from="Camera/ManagerWeapon/Weapons/Shotgun" to="Camera/ManagerWeapon/Weapons/Shotgun/Graphics/MuzzleFlash" method="_on_Shotgun_fired"]
 [connection signal="fired" from="Camera/ManagerWeapon/Weapons/Shotgun" to="Camera/ManagerWeapon/Weapons/Shotgun/BulletEmitters/BulletRotater" method="_on_Shotgun_fired"]
+[connection signal="fired" from="Camera/ManagerWeapon/Weapons/Shotgun" to="Camera/ManagerWeapon/Weapons/Shotgun/Graphics/MuzzleFlash" method="_on_Shotgun_fired"]
 [connection signal="dead" from="ManagerHealth" to="." method="_on_ManagerHealth_dead"]

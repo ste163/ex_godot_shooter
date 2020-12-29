@@ -1,3 +1,7 @@
+#THIS SHOULD BE SEPARATED
+#Where there is a WEAPON parent
+#Then a Weapon_Bullet and a Weapon_Melee
+#Currently the Machete uses a "BulletEmitter" instead of a "SwingEmitter"
 extends Spatial
 class_name Weapon
 
