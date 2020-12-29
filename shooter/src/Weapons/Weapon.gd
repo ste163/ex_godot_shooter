@@ -88,7 +88,7 @@ func _createTimer() -> void:
 	_attack_timer.one_shot = true
 	_attack_timer.name = "AttackTimer"
 	add_child(_attack_timer)
-	
+
 func _setEmitters(_fire_point: Spatial, _bodies_to_exlcude: Array) -> void:
 	fire_point = _fire_point
 	bodies_to_exlcude = _bodies_to_exlcude

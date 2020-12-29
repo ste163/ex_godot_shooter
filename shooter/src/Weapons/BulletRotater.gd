@@ -33,11 +33,8 @@ func _spreadRandomly() -> void:
 	rotation.y = rand_range(neg, pos)
 
 func _rotateRandomly() -> void:
-	#must have new rand_ranges every time or else it reuses the same range
-	#and doesn't randomize properly
-	rotation.z = rand_range(0.0, (2 * PI))
 	for e in _childEmitters:
-		e.rotation.z = rand_range(0.0, (2 * PI))
+		#e.rotation.z = rand_range(0.0, (2 * PI))
 		e.translation.y = rand_range(-0.5, 0.5)
-		e.translation.x = rand_range(-0.7, 0.2)
+		e.translation.x = rand_range(-0.5, 0.2)
 
