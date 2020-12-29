@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/environment/shed.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Characters/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/environment/brickwall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://raw_assets/raw_textures/grass_lowres.png" type="Texture" id=4]
+[ext_resource path="res://src/Weapons/DamageArea.gd" type="Script" id=5]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.156863, 0.184314, 0.211765, 1 )
@@ -29,6 +30,8 @@ vertices = PoolVector3Array( -15.5, 1.4, 4.3, -14, 1.4, 4.6, -13.4, 1.4, 4, -14,
 polygons = [ PoolIntArray( 1, 0, 2 ), PoolIntArray( 2, 0, 3 ), PoolIntArray( 5, 4, 6 ), PoolIntArray( 6, 4, 9 ), PoolIntArray( 6, 9, 7 ), PoolIntArray( 7, 9, 8 ), PoolIntArray( 11, 10, 12 ), PoolIntArray( 12, 10, 14 ), PoolIntArray( 12, 14, 13 ), PoolIntArray( 16, 15, 17 ), PoolIntArray( 17, 15, 18 ), PoolIntArray( 21, 20, 19 ), PoolIntArray( 24, 23, 22 ), PoolIntArray( 27, 26, 25 ), PoolIntArray( 30, 29, 28 ), PoolIntArray( 32, 31, 33 ), PoolIntArray( 33, 31, 34 ), PoolIntArray( 37, 36, 35 ), PoolIntArray( 39, 38, 40 ), PoolIntArray( 40, 38, 41 ), PoolIntArray( 45, 44, 42 ), PoolIntArray( 42, 44, 43 ), PoolIntArray( 49, 48, 46 ), PoolIntArray( 46, 48, 47 ), PoolIntArray( 52, 51, 50 ), PoolIntArray( 55, 54, 53 ), PoolIntArray( 58, 57, 59 ), PoolIntArray( 59, 57, 56 ), PoolIntArray( 61, 60, 62 ), PoolIntArray( 62, 60, 63 ), PoolIntArray( 63, 60, 64 ), PoolIntArray( 64, 60, 65 ), PoolIntArray( 67, 66, 68 ), PoolIntArray( 68, 66, 69 ), PoolIntArray( 72, 71, 70 ), PoolIntArray( 76, 75, 73 ), PoolIntArray( 73, 75, 74 ), PoolIntArray( 78, 77, 79 ), PoolIntArray( 79, 77, 82 ), PoolIntArray( 79, 82, 81 ), PoolIntArray( 79, 81, 80 ), PoolIntArray( 84, 83, 85 ), PoolIntArray( 85, 83, 86 ), PoolIntArray( 87, 89, 88 ), PoolIntArray( 91, 90, 92 ), PoolIntArray( 92, 90, 93 ), PoolIntArray( 96, 95, 94 ), PoolIntArray( 99, 98, 97 ), PoolIntArray( 100, 103, 101 ), PoolIntArray( 101, 103, 102 ), PoolIntArray( 105, 104, 106 ), PoolIntArray( 106, 104, 107 ), PoolIntArray( 110, 109, 108 ), PoolIntArray( 112, 111, 113 ), PoolIntArray( 113, 111, 114 ), PoolIntArray( 116, 115, 117 ), PoolIntArray( 117, 115, 118 ), PoolIntArray( 121, 120, 119 ), PoolIntArray( 124, 123, 122 ), PoolIntArray( 126, 125, 127 ), PoolIntArray( 133, 132, 128 ), PoolIntArray( 128, 132, 129 ), PoolIntArray( 129, 132, 130 ), PoolIntArray( 130, 132, 131 ), PoolIntArray( 136, 135, 134 ), PoolIntArray( 139, 138, 137 ), PoolIntArray( 141, 140, 142 ), PoolIntArray( 142, 140, 143 ), PoolIntArray( 146, 145, 144 ), PoolIntArray( 148, 147, 149 ), PoolIntArray( 149, 147, 150 ), PoolIntArray( 153, 152, 151 ), PoolIntArray( 156, 155, 154 ), PoolIntArray( 157, 159, 158 ), PoolIntArray( 161, 160, 162 ), PoolIntArray( 162, 160, 163 ), PoolIntArray( 164, 166, 165 ), PoolIntArray( 169, 168, 167 ), PoolIntArray( 170, 174, 171 ), PoolIntArray( 171, 174, 172 ), PoolIntArray( 172, 174, 173 ), PoolIntArray( 176, 175, 177 ), PoolIntArray( 177, 175, 178 ), PoolIntArray( 178, 175, 179 ), PoolIntArray( 183, 182, 180 ), PoolIntArray( 180, 182, 181 ), PoolIntArray( 186, 185, 184 ), PoolIntArray( 189, 188, 187 ), PoolIntArray( 191, 190, 192 ), PoolIntArray( 192, 190, 193 ), PoolIntArray( 196, 195, 194 ), PoolIntArray( 198, 197, 199 ), PoolIntArray( 199, 197, 200 ), PoolIntArray( 200, 197, 201 ), PoolIntArray( 201, 197, 202 ), PoolIntArray( 205, 204, 203 ) ]
 agent/radius = 0.42
 agent/max_climb = 0.1
+
+[sub_resource type="BoxShape" id=7]
 
 [node name="Level00_Test" type="Spatial"]
 
@@ -101,3 +104,13 @@ navmesh = SubResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0347109, 2.13541, 4.49537 )
+
+[node name="DamageArea" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.67342, 3.46591 )
+collision_layer = 2147483648
+collision_mask = 2147483650
+script = ExtResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="DamageArea"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+shape = SubResource( 7 )

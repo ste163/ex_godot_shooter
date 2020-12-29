@@ -1,19 +1,21 @@
-extends Spatial
+extends Emitter
 
 #Preload allows us to load this file when the game starts, not the scene
 var hit_effect: PackedScene = preload("res://src/Effects/EffectHitBullet.tscn")
 
 export var distance: int = 10000
-var bodies_to_exclude: Array = []
-var damage: int = 1 #default value will be over-ridden by each weapon
-
-func set_damage(_damage: int) -> void:
-	damage = _damage
-
-func set_bodies_to_exclude(_bodies_to_exclude: Array) -> void:
-	bodies_to_exclude = _bodies_to_exclude
 
 func fire() -> void:
+	var result: Dictionary
+	result = _whatWasHit()
+	#if whatever we hit has the "hurt" method. damage them
+	if result and result.collider.has_method("hurt"):
+		result.collider.hurt(damage, result.normal) #the normal will spray blood in the hit direction
+	#if hit something that can't be hurt, instantiate the particle effect
+	elif result: 
+		_createAndOrientParticleEffect(result)
+
+func _whatWasHit() -> Dictionary:
 	var space_state: PhysicsDirectSpaceState = get_world().get_direct_space_state()
 	var player_pos: Vector3 = global_transform.origin #get player's position
 	#The Intersect Ray method means:
@@ -23,12 +25,7 @@ func fire() -> void:
 		#the 1 + 2 + 4 comes from the values of the evironment, characters, and hitboxes layers
 	var result: Dictionary = space_state.intersect_ray(player_pos, player_pos - global_transform.basis.z * distance,
 		bodies_to_exclude, 1 + 2 + 4, true, true)
-	
-	#if whatever we hit has the "hurt" method. damage them
-	if result and result.collider.has_method("hurt"):
-		result.collider.hurt(damage, result.normal) #the normal will spray blood in the hit direction
-	elif result: #if hit something that can't be hurt, instantiate the hit effect
-		_createAndOrientParticleEffect(result)
+	return result
 
 func _createAndOrientParticleEffect(result: Dictionary) -> void:
 	var hit_effect_instance = hit_effect.instance()

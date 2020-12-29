@@ -1,7 +1,9 @@
 #BulletRotater rotates all HitScanEmitters, then
 	#takes arguements from the Weapon script and passes
 	#them into each HitScanEmitter, and it does this by sharing public method names
-extends Spatial
+
+#overrides the mehtods set in Emitter
+extends Emitter
 
 onready var _childEmitters: Array = get_children()
 

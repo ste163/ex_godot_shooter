@@ -15,12 +15,18 @@ _global_script_classes=[ {
 "path": "res://src/Characters/Character.gd"
 }, {
 "base": "Spatial",
+"class": "Emitter",
+"language": "GDScript",
+"path": "res://src/Weapons/Emitter.gd"
+}, {
+"base": "Spatial",
 "class": "Weapon",
 "language": "GDScript",
 "path": "res://src/Weapons/Weapon.gd"
 } ]
 _global_script_class_icons={
 "Character": "",
+"Emitter": "",
 "Weapon": ""
 }
 
