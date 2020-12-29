@@ -1,4 +1,5 @@
 extends Spatial
+class_name Weapon
 
 onready var _anim_player: AnimationPlayer = $AnimationPlayer
 onready var _bullet_emitters_base: Spatial = $BulletEmitters
@@ -33,8 +34,33 @@ func set_inactive() -> void:
 	hide()
 	
 func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
-	_canAttack(attack_input_just_pressed, attack_input_held)
-	#start attacking
+	var can_attack: bool = false
+	can_attack = _canAttack(attack_input_just_pressed, attack_input_held)
+	if can_attack:
+		_attacking()
+	else:
+		return
+
+func _canAttack(attack_input_just_pressed: bool, attack_input_held: bool) -> bool:
+	if not _can_attack:
+		return false
+	if automatic and not attack_input_held:
+		return false
+	elif not automatic and not attack_input_just_pressed:
+		return false
+	
+	if ammo == 0:
+		if attack_input_just_pressed:
+			emit_signal("out_of_ammo")
+		return false
+	elif ammo > 0:
+		ammo -= 1
+		return true
+	#should never run, but in case anything else occurs that shouldn't, run this
+	else:
+		return false
+		
+func _attacking() -> void:
 	var start_transform: Transform = _bullet_emitters_base.global_transform
 	_bullet_emitters_base.global_transform = fire_point.global_transform
 	for e in _bullet_emitters:
@@ -45,23 +71,8 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
 	emit_signal("fired")
 	_can_attack = false #we just attacked so start timer
 	_attack_timer.start()
-	
 
-func _canAttack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
-	if not _can_attack:
-		return
-	if automatic and not attack_input_held:
-		return
-	elif not automatic and not attack_input_just_pressed:
-		return
-	
-	if ammo == 0:
-		if attack_input_just_pressed:
-			emit_signal("out_of_ammo")
-		return
-	if ammo > 0:
-		ammo -= 1
-		
+
 func _finish_attack() -> void:
 	_can_attack = true
 
@@ -69,8 +80,9 @@ func _finish_attack() -> void:
 func _createTimer() -> void:
 	_attack_timer = Timer.new()
 	_attack_timer.wait_time = attack_rate
-	_attack_timer.connect("timeout", self, "finish_attack")
+	_attack_timer.connect("timeout", self, "_finish_attack")
 	_attack_timer.one_shot = true
+	_attack_timer.name = "AttackTimer"
 	add_child(_attack_timer)
 	
 func _setEmitters(_fire_point: Spatial, _bodies_to_exlcude: Array) -> void:

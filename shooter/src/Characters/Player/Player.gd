@@ -40,7 +40,7 @@ func _process(_delta: float) -> void:
 		return
 	else:
 		_movementInputs()
-		_attackInputs()
+		_attackInput()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -74,7 +74,7 @@ func _movementInputs() -> void:
 		
 	set_move_vec(_move_vec)
 
-func _attackInputs() -> void:
+func _attackInput() -> void:
 	_manager_weapon.attack(Input.is_action_just_pressed("attack"),
 		Input.is_action_pressed("attack"))
 

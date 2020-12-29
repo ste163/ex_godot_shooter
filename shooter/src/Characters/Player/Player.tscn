@@ -266,6 +266,7 @@ script = ExtResource( 4 )
 
 [node name="Machete" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
 transform = Transform( -0.185095, 0, -6.03115e-08, 0, 0.185095, 0, 6.03115e-08, 0, -0.185095, 0.171074, -0.212483, -0.259124 )
+visible = false
 
 [node name="Graphics" type="Spatial" parent="Camera/ManagerWeapon/Weapons/Machete"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
@@ -279,14 +280,14 @@ anims/Attack = SubResource( 3 )
 anims/Idle = SubResource( 2 )
 
 [node name="MachineGun" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
-transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0.146565, -0.204998, -0.180639 )
-visible = false
+transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0.146565, -0.204998, -0.0973653 )
 script = ExtResource( 9 )
+automatic = true
 
 [node name="BulletEmitters" type="Spatial" parent="Camera/ManagerWeapon/Weapons/MachineGun"]
 
 [node name="HitScanBulletEmitter" parent="Camera/ManagerWeapon/Weapons/MachineGun/BulletEmitters" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.313796, -1.73201 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.313796, -1.02654 )
 
 [node name="Graphics" type="Spatial" parent="Camera/ManagerWeapon/Weapons/MachineGun"]
 
@@ -326,7 +327,7 @@ anims/Attack = SubResource( 8 )
 anims/Idle = SubResource( 9 )
 
 [node name="FirePoint" type="Spatial" parent="Camera"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0561043 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0271371 )
 
 [node name="ManagerHealth" parent="." instance=ExtResource( 2 )]
 [connection signal="dead" from="ManagerHealth" to="." method="_on_ManagerHealth_dead"]
