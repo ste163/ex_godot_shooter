@@ -32,6 +32,7 @@ func _ready() -> void:
 	# hide mouse cursor and lock it to center of screen
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)	
 	_manager_health.init()
+	_manager_weapon.init($Camera/FirePoint, [self]) #firePoint is wherever we are looking, [self] is that we don't want to shoot us
 
 # _process runs every frame, delta is time since last frame.
 func _process(_delta: float) -> void:
@@ -39,6 +40,7 @@ func _process(_delta: float) -> void:
 		return
 	else:
 		_movementInputs()
+		_attackInputs()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -71,7 +73,11 @@ func _movementInputs() -> void:
 		jump()
 		
 	set_move_vec(_move_vec)
-	
+
+func _attackInputs() -> void:
+	_manager_weapon.attack(Input.is_action_just_pressed("attack"),
+		Input.is_action_pressed("attack"))
+
 func _hotkeyInput(event: InputEvent) -> void:
 	if event.scancode in hotkeys: #scancode is KEY_1 etc, they're built-ins
 		_manager_weapon.switch_to_weapon_slot(hotkeys[event.scancode])

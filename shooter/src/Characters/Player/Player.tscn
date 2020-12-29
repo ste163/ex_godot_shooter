@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/Managers/ManagerHealth.tscn" type="PackedScene" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://raw_assets/raw_meshes_weapons/machinegun.glb" type="PackedScene" id=5]
 [ext_resource path="res://raw_assets/raw_meshes_weapons/shotgun.glb" type="PackedScene" id=6]
 [ext_resource path="res://raw_assets/raw_meshes_weapons/rocketlauncher.glb" type="PackedScene" id=7]
+[ext_resource path="res://src/Weapons/HitScanBulletEmitter.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/Weapons/Weapon.gd" type="Script" id=9]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -279,6 +281,12 @@ anims/Idle = SubResource( 2 )
 [node name="MachineGun" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
 transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0.146565, -0.204998, -0.180639 )
 visible = false
+script = ExtResource( 9 )
+
+[node name="BulletEmitters" type="Spatial" parent="Camera/ManagerWeapon/Weapons/MachineGun"]
+
+[node name="HitScanBulletEmitter" parent="Camera/ManagerWeapon/Weapons/MachineGun/BulletEmitters" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.313796, -1.73201 )
 
 [node name="Graphics" type="Spatial" parent="Camera/ManagerWeapon/Weapons/MachineGun"]
 
@@ -316,6 +324,9 @@ transform = Transform( 0.534776, 0, 0, 0, 0.534776, 0, 0, 0, 0.534776, 0, 0.0132
 autoplay = "Idle"
 anims/Attack = SubResource( 8 )
 anims/Idle = SubResource( 9 )
+
+[node name="FirePoint" type="Spatial" parent="Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0561043 )
 
 [node name="ManagerHealth" parent="." instance=ExtResource( 2 )]
 [connection signal="dead" from="ManagerHealth" to="." method="_on_ManagerHealth_dead"]

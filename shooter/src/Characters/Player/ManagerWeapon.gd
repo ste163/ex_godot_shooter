@@ -12,10 +12,24 @@ var slots_unlocked: Dictionary = {
 onready var weapons: Array = $Weapons.get_children()
 var cur_slot: int = 0
 var cur_weapon = null #unknown type for now
+var fire_point: Spatial
+var bodies_to_exclude: Array = []
 
 func _ready() -> void:
 	pass
 	
+func init(_fire_point: Spatial, _bodies_to_exclude: Array) -> void:
+	fire_point = _fire_point
+	bodies_to_exclude = _bodies_to_exclude
+	for weapon in weapons:
+		if weapon.has_method("init"):
+			weapon.init(_fire_point, _bodies_to_exclude)
+	switch_to_weapon_slot(WEAPON_SLOTS.MACHETE) #player always starts with Machete
+	
+func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
+	if cur_weapon.has_method("attack"):
+		cur_weapon.attack(attack_input_just_pressed, attack_input_held)
+
 func switch_to_next_weapon() -> void:
 	cur_slot = switch_to_slot("next")
 	if not slots_unlocked[cur_slot]:
