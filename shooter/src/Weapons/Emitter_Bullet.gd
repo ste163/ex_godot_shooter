@@ -1,5 +1,5 @@
 extends Spatial
-class_name Emitter
+class_name Emitter_Bullet
 
 var bodies_to_exclude: Array = []
 var damage: int = 1 #default value will be over-ridden by each weapon

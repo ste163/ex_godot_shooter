@@ -1,4 +1,4 @@
-extends Emitter
+extends Emitter_Bullet
 
 #Preload allows us to load this file when the game starts, not the scene
 var hit_effect: PackedScene = preload("res://src/Effects/EffectHitBullet.tscn")

@@ -15,9 +15,14 @@ _global_script_classes=[ {
 "path": "res://src/Characters/Character.gd"
 }, {
 "base": "Spatial",
-"class": "Emitter",
+"class": "Emitter_Bullet",
 "language": "GDScript",
-"path": "res://src/Weapons/Emitter.gd"
+"path": "res://src/Weapons/Emitter_Bullet.gd"
+}, {
+"base": "Area",
+"class": "Emitter_Melee",
+"language": "GDScript",
+"path": "res://src/Weapons/Emitter_Melee.gd"
 }, {
 "base": "Spatial",
 "class": "Weapon",
@@ -26,7 +31,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Character": "",
-"Emitter": "",
+"Emitter_Bullet": "",
+"Emitter_Melee": "",
 "Weapon": ""
 }
 

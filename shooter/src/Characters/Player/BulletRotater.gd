@@ -2,8 +2,8 @@
 	#takes arguements from the Weapon script and passes
 	#them into each HitScanEmitter, and it does this by sharing public method names
 
-#overrides the mehtods set in Emitter
-extends Emitter
+#overrides the mehtods set in Emitter_Bullet
+extends Emitter_Bullet
 
 onready var _childEmitters: Array = get_children()
 
