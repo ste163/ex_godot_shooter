@@ -6,6 +6,9 @@ var _timer: Timer
 func _on_MachineGun_fired() -> void:
 	_flash()
 
+func _on_Shotgun_fired() -> void:
+	_flash()
+
 func _ready() -> void:
 	_timer = Timer.new()
 	add_child(_timer)
