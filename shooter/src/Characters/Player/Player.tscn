@@ -296,6 +296,7 @@ transform = Transform( 1, 0, -8.52651e-14, 0, 1, 0, 8.52651e-14, 0, 1, 0, 0, 0 )
 
 [node name="MachineGun" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
 transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0.146565, -0.204998, -0.0973653 )
+visible = false
 script = ExtResource( 9 )
 automatic = true
 ammo = 60
@@ -314,14 +315,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.313796, -1.02654 )
 [node name="machinegun" parent="Camera/ManagerWeapon/Weapons/MachineGun/Graphics" instance=ExtResource( 5 )]
 
 [node name="MuzzleFlash" type="Spatial" parent="Camera/ManagerWeapon/Weapons/MachineGun/Graphics"]
-transform = Transform( -0.763574, 0, -6.67538e-08, 0, 0.763574, 0, 6.67538e-08, 0, -0.763574, -5.96046e-08, 0.330132, -1.7018 )
+transform = Transform( -0.763574, 0, -6.67538e-08, 0, 0.763574, 0, 6.67538e-08, 0, -0.763574, -1.19209e-07, 0.330132, -1.7018 )
 script = ExtResource( 10 )
 
-[node name="MuzzleFlashMesh" parent="Camera/ManagerWeapon/Weapons/MachineGun/Graphics/MuzzleFlash" instance=ExtResource( 11 )]
+[node name="MuzzleFlashMesh" type="Spatial" parent="Camera/ManagerWeapon/Weapons/MachineGun/Graphics/MuzzleFlash" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, 0, 0, 0 )
 
 [node name="OmniLight" type="OmniLight" parent="Camera/ManagerWeapon/Weapons/MachineGun/Graphics/MuzzleFlash"]
-transform = Transform( 5.40541, 0, 0, 0, 5.40541, 0, 0, 0, 5.40541, 0, 0, 0 )
+transform = Transform( 7.07909, 0, 2.33058e-12, 0, 7.07909, 0, -2.33058e-12, 0, 7.07909, 0, 0.0618386, 1.03547 )
 light_energy = 3.14
+light_bake_mode = 0
+light_cull_mask = 4293918721
+shadow_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/ManagerWeapon/Weapons/MachineGun"]
 autoplay = "Idle"
@@ -330,7 +335,6 @@ anims/Idle = SubResource( 5 )
 
 [node name="Shotgun" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
 transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0.0879056, -0.152788, -0.0881764 )
-visible = false
 script = ExtResource( 9 )
 attack_rate = 0.8
 
@@ -373,8 +377,9 @@ transform = Transform( 2.15395, 0, 0, 0, 2.15395, 0, 0, 0, 2.15395, 0, 0.147553,
 script = ExtResource( 10 )
 
 [node name="OmniLight" type="OmniLight" parent="Camera/ManagerWeapon/Weapons/Shotgun/Graphics/MuzzleFlash"]
-transform = Transform( 5.40541, 0, 0, 0, 5.4054, 0, 0, 0, 5.4054, 0, 0, 0 )
+transform = Transform( 2.50953, 0, 0, 0, 2.50953, 0, 0, 0, 2.50953, 0, 0, -0.937004 )
 light_energy = 3.14
+shadow_enabled = true
 
 [node name="muzzleflash3" parent="Camera/ManagerWeapon/Weapons/Shotgun/Graphics/MuzzleFlash" instance=ExtResource( 12 )]
 transform = Transform( -0.911445, 0, -2.96987e-07, 0, 0.911445, 0, 2.96986e-07, 0, -0.911445, 0, 0, 0 )

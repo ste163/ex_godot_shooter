@@ -1,10 +1,11 @@
 extends Camera
 
+export var recoil_x_degree_machinegun: float = 40.0
+export var recoil_timer_machinegun: float = 0.01
+
 var _minAngle: float = -90.0
 var _maxAngle: float = 90.0
 
-export var recoil_degree_machinegun: float = 5.0
-export var recoil_timer_machinegun: float = 0.05
 var _is_shooting_machinegun: bool = false
 var _machinegun_timer: Timer
 
@@ -18,15 +19,26 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if _is_shooting_machinegun == true:
-		var newAngle: float
-		var startAngle = rotation_degrees.x
-		var angleAfterRecoil: float = rotation_degrees.x + recoil_degree_machinegun
+		#handle up recoil
+		var newXAngle: float
+		var startXAngle = rotation_degrees.x
+		var angleXAfterRecoil: float = rotation_degrees.x + recoil_x_degree_machinegun
 		
-		newAngle = lerp(startAngle, angleAfterRecoil, 0.1)
-		rotation_degrees.x = clamp(newAngle, _minAngle, _maxAngle)
-	else:
-		rotation_degrees.x = rotation_degrees.x
+		#randomize left and right recoil
+		var newYAngle: float
+		var recoil_y_degree_machinegun: float = rand_range(-10.0, 10.0)
+		var startYAngle = rotation_degrees.y
+		var angleYAfterRecoil: float = rotation_degrees.y + recoil_y_degree_machinegun
+		
+		#smooth the values between start and end recoil position
+		newXAngle = lerp(startXAngle, angleXAfterRecoil, 0.1)
+		newYAngle = lerp(startYAngle, angleYAfterRecoil, 0.1)
+		
+		#constantly reassign the new, smooth values as we're shooting
+		rotation_degrees.x = clamp(newXAngle, _minAngle, _maxAngle)
+		rotation_degrees.y = newYAngle
 
+#cancel the recoil method during the physics process
 func _stopMachineGunRecoil() -> void:
 	_is_shooting_machinegun = false
 
