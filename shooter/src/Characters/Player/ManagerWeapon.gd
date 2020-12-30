@@ -79,7 +79,7 @@ func _update_animation(velocity: Vector3, grounded: bool) -> void:
 		#and we are not currently idle
 		_anim_player.play("Idle")
 	if not grounded or velocity.length() < 5.0:
-		_anim_player.play("Idle")
+		_anim_player.play("Idle", 0.1)
 	else:
 		_anim_player.play("Moving")
 	
