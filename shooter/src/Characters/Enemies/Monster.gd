@@ -4,8 +4,12 @@ extends Character
 #Prepares each Monster with hitboxes
 
 enum STATES {IDLE, CHASE, ATTACK, DEAD}
+
+export var sight_angle: float = 45.0
+
 var cur_state = STATES.IDLE
 var player: KinematicBody
+
 onready var anim_player = $Graphics/AnimationPlayer
 onready var health_manager = $ManagerHealth
 
@@ -15,7 +19,7 @@ func _ready() -> void:
 	_prepare_hitboxes()
 
 func _process(delta: float) -> void:
-	print("Can see player? ", has_los_player())
+	print(can_see_player())
 	match cur_state: #match is a switch statement for GDScript
 		STATES.IDLE:
 			process_state_idle(delta)
@@ -51,6 +55,14 @@ func process_state_attack(delta: float) -> void:
 
 func process_state_dead(delta: float) -> void:
 	pass
+
+func can_see_player() -> bool:
+	#gets the monster's direction to the player
+	var dir_to_player: Vector3 = global_transform.origin.direction_to(player.global_transform.origin)
+	var forwards = global_transform.basis.z
+	#checks what the angle the enemy is facing based on where the player is. If the player's direction is
+	#less than the enemies sight_angle, AND the enemy has LOS then player is in the enemies cone of vision
+	return rad2deg(forwards.angle_to(dir_to_player)) < sight_angle and has_los_player()
 
 #LOS is line of sight
 #gets LOS by raycasting from monster's position to the player's
