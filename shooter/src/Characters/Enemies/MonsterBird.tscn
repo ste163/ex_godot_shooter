@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/enemies/birdmonster.glb" type="PackedScene" id=1]
-[ext_resource path="res://src/Characters/Enemies/Monster.gd" type="Script" id=2]
+[ext_resource path="res://src/Characters/Managers/ManagerHealth.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Characters/Enemies/MonsterBird.gd" type="Script" id=3]
 [ext_resource path="res://src/Characters/Enemies/HitBox.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
@@ -43,7 +44,7 @@ radius = 0.083251
 [node name="MonsterBird" type="KinematicBody"]
 collision_layer = 2
 collision_mask = 3
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 1, 0 )
@@ -178,5 +179,9 @@ shape = SubResource( 9 )
 [node name="Head" type="CollisionShape" parent="Graphics/Armature/Skeleton/Body/HitBox"]
 transform = Transform( 1, -9.47141e-09, -1.84718e-09, 1.14525e-10, 1, -2.38419e-07, 2.19643e-09, 2.38419e-07, 1, -4.08156e-09, 0.499385, 0.256767 )
 shape = SubResource( 10 )
+
+[node name="ManagerHealth" parent="." instance=ExtResource( 2 )]
+max_health = 20
+[connection signal="dead" from="ManagerHealth" to="." method="_on_ManagerHealth_dead"]
 
 [editable path="Graphics"]

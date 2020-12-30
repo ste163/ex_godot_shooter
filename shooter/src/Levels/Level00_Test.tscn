@@ -109,3 +109,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0347109, 2.13541, 4.49537 )
 
 [node name="MonsterBird" parent="Enemies/BirdMonsters" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="MonsterBird2" parent="Enemies/BirdMonsters" instance=ExtResource( 5 )]
+transform = Transform( -0.563857, 0, 0.825872, 0, 1, 0, -0.825872, 0, -0.563857, -5.1329, 1, 7.63759 )
+
+[node name="MonsterBird3" parent="Enemies/BirdMonsters" instance=ExtResource( 5 )]
+transform = Transform( 0.314042, 0, 0.949409, 0, 1, 0, -0.949409, 0, 0.314042, -6.38019, 1, 2.98266 )
