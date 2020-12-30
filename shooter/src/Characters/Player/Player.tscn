@@ -370,6 +370,7 @@ anims/Idle = SubResource( 5 )
 
 [node name="Shotgun" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
 transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0.0879056, -0.152788, -0.0881764 )
+visible = false
 script = ExtResource( 9 )
 attack_rate = 0.8
 
