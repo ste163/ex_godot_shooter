@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/Managers/ManagerHealth.tscn" type="PackedScene" id=2]
@@ -249,6 +249,40 @@ tracks/1/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
+[sub_resource type="Animation" id=11]
+resource_name = "Idle"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.003, 0 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "Moving"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -0.027 ) ]
+}
+
 [node name="Player" type="KinematicBody"]
 collision_layer = 2147483654
 collision_mask = 3
@@ -267,12 +301,14 @@ fov = 80.0
 script = ExtResource( 15 )
 
 [node name="ManagerWeapon" type="Spatial" parent="Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000868667, 0 )
 script = ExtResource( 4 )
 
 [node name="Weapons" type="Spatial" parent="Camera/ManagerWeapon"]
 
 [node name="Machete" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
 transform = Transform( -1, 0, -3.89414e-07, 0, 1, 0, 3.89414e-07, 0, -1, 0.171074, -0.212483, -0.259124 )
+visible = false
 script = ExtResource( 9 )
 automatic = true
 damage = 15
@@ -280,7 +316,7 @@ ammo = 10000000000000
 attack_rate = 0.4
 
 [node name="Graphics" type="Spatial" parent="Camera/ManagerWeapon/Weapons/Machete"]
-transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0, 0, 0 )
+transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0, 0.02, 0 )
 
 [node name="machete" parent="Camera/ManagerWeapon/Weapons/Machete/Graphics" instance=ExtResource( 3 )]
 
@@ -297,7 +333,6 @@ transform = Transform( 1, 0, -8.52651e-14, 0, 1, 0, 8.52651e-14, 0, 1, 0, 0, 0 )
 
 [node name="MachineGun" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
 transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0.146565, -0.204998, -0.0973653 )
-visible = false
 script = ExtResource( 9 )
 automatic = true
 ammo = 60
@@ -405,6 +440,11 @@ autoplay = "Idle"
 anims/Attack = SubResource( 8 )
 anims/Idle = SubResource( 9 )
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/ManagerWeapon"]
+autoplay = "Idle"
+anims/Idle = SubResource( 11 )
+anims/Moving = SubResource( 10 )
+
 [node name="FirePoint" type="Spatial" parent="Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0271371 )
 
@@ -424,6 +464,7 @@ __meta__ = {
 }
 
 [node name="ManagerHealth" parent="." instance=ExtResource( 2 )]
+[connection signal="movement_info" from="." to="Camera/ManagerWeapon" method="_update_animation"]
 [connection signal="fired" from="Camera/ManagerWeapon/Weapons/MachineGun" to="Camera" method="_on_MachineGun_fired"]
 [connection signal="fired" from="Camera/ManagerWeapon/Weapons/MachineGun" to="Camera/ManagerWeapon/Weapons/MachineGun/BulletEmitters/BulletRotater" method="_on_MachineGun_fired"]
 [connection signal="fired" from="Camera/ManagerWeapon/Weapons/MachineGun" to="Camera/ManagerWeapon/Weapons/MachineGun/Graphics/MuzzleFlash" method="_on_MachineGun_fired"]

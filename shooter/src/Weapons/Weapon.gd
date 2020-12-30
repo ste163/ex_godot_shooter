@@ -36,7 +36,10 @@ func set_active() -> void:
 func set_inactive() -> void:
 	_anim_player.play("Idle")
 	hide()
-	
+
+func is_idle() -> bool:
+	return not _anim_player.is_playing() or _anim_player.current_animation == "Idle"
+
 func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
 	var can_attack: bool = false
 	can_attack = _canAttack(attack_input_just_pressed, attack_input_held)
@@ -79,6 +82,13 @@ func _attacking() -> void:
 func _finish_attack() -> void:
 	_can_attack = true
 
+func _setEmitters(_fire_point: Spatial, _bodies_to_exlcude: Array) -> void:
+	fire_point = _fire_point
+	bodies_to_exlcude = _bodies_to_exlcude
+	for e in _bullet_emitters:
+		e.set_damage(damage)
+		e.set_bodies_to_exclude(bodies_to_exlcude)
+
 #create the timer here, but we won't start it until we start attacking
 func _createTimer() -> void:
 	_attack_timer = Timer.new()
@@ -87,10 +97,3 @@ func _createTimer() -> void:
 	_attack_timer.one_shot = true
 	_attack_timer.name = "AttackTimer"
 	add_child(_attack_timer)
-
-func _setEmitters(_fire_point: Spatial, _bodies_to_exlcude: Array) -> void:
-	fire_point = _fire_point
-	bodies_to_exlcude = _bodies_to_exlcude
-	for e in _bullet_emitters:
-		e.set_damage(damage)
-		e.set_bodies_to_exclude(bodies_to_exlcude)

@@ -10,6 +10,7 @@ var slots_unlocked: Dictionary = {
 }
 
 onready var weapons: Array = $Weapons.get_children()
+onready var _anim_player: AnimationPlayer = $AnimationPlayer
 var cur_slot: int = 0
 var cur_weapon = null #unknown type for now
 var fire_point: Spatial
@@ -71,3 +72,17 @@ func disable_all_weapons() -> void:
 			weapon.set_inactive()
 		else:
 			weapon.hide()
+
+func _update_animation(velocity: Vector3, grounded: bool) -> void:
+	if cur_weapon.has_method("is_idle") and not cur_weapon.is_idle():
+		#if we have the idle animation for this weapon
+		#and we are not currently idle
+		_anim_player.play("Idle")
+	if not grounded or velocity.length() < 5.0:
+		_anim_player.play("Idle")
+	else:
+		_anim_player.play("Moving")
+	
+
+
+
