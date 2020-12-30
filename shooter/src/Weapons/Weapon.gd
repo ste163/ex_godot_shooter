@@ -1,28 +1,27 @@
+class_name Weapon
+extends Spatial
 #THIS SHOULD BE SEPARATED
 #Where there is a WEAPON parent
 #Then a Weapon_Bullet and a Weapon_Melee
 #Currently the Machete uses a "BulletEmitter" instead of a "SwingEmitter"
-extends Spatial
-class_name Weapon
-
-onready var _anim_player: AnimationPlayer = $AnimationPlayer
-onready var _bullet_emitters_base: Spatial = $BulletEmitters
-onready var _bullet_emitters = $BulletEmitters.get_children()
 
 signal fired
 signal out_of_ammo
 
 export var automatic = false
+export var damage: int = 5 #how much damage each bullet does
+export var ammo: int = 30
+export var attack_rate: float = 0.2
 
 var fire_point: Spatial
 var bodies_to_exlcude: Array = [] #pass into bullet emitters
 
-export var damage: int = 5 #how much damage each bullet does
-export var ammo: int = 30
-
-export var attack_rate: float = 0.2
 var _attack_timer: Timer
 var _can_attack: bool = true
+
+onready var _anim_player: AnimationPlayer = $AnimationPlayer
+onready var _bullet_emitters_base: Spatial = $BulletEmitters
+onready var _bullet_emitters = $BulletEmitters.get_children()
 
 func _ready() -> void:
 	_createTimer()

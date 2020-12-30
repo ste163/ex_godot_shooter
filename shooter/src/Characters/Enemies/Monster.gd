@@ -19,7 +19,6 @@ func _ready() -> void:
 	_prepare_hitboxes()
 
 func _process(delta: float) -> void:
-	print(can_see_player())
 	match cur_state: #match is a switch statement for GDScript
 		STATES.IDLE:
 			process_state_idle(delta)
@@ -36,6 +35,7 @@ func set_state_idle() -> void:
 
 func set_state_chase() -> void:
 	cur_state = STATES.CHASE
+	print("ALERTED")
 
 func set_state_attack() -> void:
 	cur_state = STATES.ATTACK
@@ -45,7 +45,8 @@ func set_state_dead() -> void:
 	anim_player.play("die")
 
 func process_state_idle(delta: float) -> void:
-	pass
+	if can_see_player():
+		set_state_chase()
 
 func process_state_chase(delta: float) -> void:
 	pass
@@ -78,8 +79,21 @@ func has_los_player() -> bool:
 	else:
 		return true 
 
+#whenever we run alert, check if we have LOS before running
+func alert(check_los: bool = true) -> void:
+	#the checks to see if we're already in a non-idle state. If we are, don't alert me because
+	#the other states would be alerted already or dead
+	if cur_state != STATES.IDLE: 
+		return
+	if check_los and !has_los_player(): #if we don't have LOS, don't alert
+		return
+	else:
+		set_state_chase()
+		
 #this signal is linked dynamically in the Monster method to each instance
 func on_hit(damage: int, dir: Vector3) -> void:
+	if cur_state == STATES.IDLE:
+		set_state_chase()
 	health_manager.hurt(damage, dir)
 
 func _prepare_hitboxes() -> void:
