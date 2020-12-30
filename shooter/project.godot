@@ -110,4 +110,5 @@ attack={
 
 [rendering]
 
+quality/shading/force_lambert_over_burley=true
 environment/default_environment="res://default_env.tres"
