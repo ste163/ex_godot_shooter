@@ -410,6 +410,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0271371 )
 [connection signal="fired" from="Camera/ManagerWeapon/Weapons/MachineGun" to="Camera" method="_on_MachineGun_fired"]
 [connection signal="fired" from="Camera/ManagerWeapon/Weapons/MachineGun" to="Camera/ManagerWeapon/Weapons/MachineGun/BulletEmitters/BulletRotater" method="_on_MachineGun_fired"]
 [connection signal="fired" from="Camera/ManagerWeapon/Weapons/MachineGun" to="Camera/ManagerWeapon/Weapons/MachineGun/Graphics/MuzzleFlash" method="_on_MachineGun_fired"]
+[connection signal="fired" from="Camera/ManagerWeapon/Weapons/Shotgun" to="Camera" method="_on_Shotgun_fired"]
 [connection signal="fired" from="Camera/ManagerWeapon/Weapons/Shotgun" to="Camera/ManagerWeapon/Weapons/Shotgun/Graphics/MuzzleFlash" method="_on_Shotgun_fired"]
 [connection signal="fired" from="Camera/ManagerWeapon/Weapons/Shotgun" to="Camera/ManagerWeapon/Weapons/Shotgun/BulletEmitters/BulletRotater" method="_on_Shotgun_fired"]
 [connection signal="dead" from="ManagerHealth" to="." method="_on_ManagerHealth_dead"]
