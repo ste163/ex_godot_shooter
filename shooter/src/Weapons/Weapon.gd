@@ -76,7 +76,6 @@ func _attacking() -> void:
 	_can_attack = false #we just attacked so start timer
 	_attack_timer.start()
 
-
 func _finish_attack() -> void:
 	_can_attack = true
 

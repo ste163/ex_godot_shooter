@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://src/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Characters/Managers/ManagerHealth.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://src/Weapons/BulletRotater.gd" type="Script" id=13]
 [ext_resource path="res://src/Weapons/MeleeDamageArea.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/Characters/Player/Camera.gd" type="Script" id=15]
+[ext_resource path="res://assets/crosshairs/crosshair001.png" type="Texture" id=16]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -335,6 +336,7 @@ anims/Idle = SubResource( 5 )
 
 [node name="Shotgun" type="Spatial" parent="Camera/ManagerWeapon/Weapons"]
 transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0.0879056, -0.152788, -0.0881764 )
+visible = false
 script = ExtResource( 9 )
 attack_rate = 0.8
 
@@ -394,7 +396,7 @@ transform = Transform( 0.185, 0, 0, 0, 0.185, 0, 0, 0, 0.185, 0.228678, -0.06478
 visible = false
 
 [node name="Graphics" type="Spatial" parent="Camera/ManagerWeapon/Weapons/RocketLauncher"]
-transform = Transform( 0.534776, 0, 0, 0, 0.534776, 0, 0, 0, 0.534776, 0, 0.0132225, 0 )
+transform = Transform( 0.534776, 0, 0, 0, 0.528997, -0.0784079, 0, 0.0784079, 0.528997, 0, 0, 0.551933 )
 
 [node name="rocketlauncher" parent="Camera/ManagerWeapon/Weapons/RocketLauncher/Graphics" instance=ExtResource( 7 )]
 
@@ -405,6 +407,21 @@ anims/Idle = SubResource( 9 )
 
 [node name="FirePoint" type="Spatial" parent="Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0271371 )
+
+[node name="Crosshair" type="TextureRect" parent="Camera"]
+modulate = Color( 1, 1, 1, 0.509804 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -36.0
+margin_top = -36.0
+margin_right = 36.0
+margin_bottom = 36.0
+texture = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ManagerHealth" parent="." instance=ExtResource( 2 )]
 [connection signal="fired" from="Camera/ManagerWeapon/Weapons/MachineGun" to="Camera" method="_on_MachineGun_fired"]
