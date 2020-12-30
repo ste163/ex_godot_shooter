@@ -8,9 +8,9 @@ export var distance: int = 10000
 func fire() -> void:
 	var result: Dictionary
 	result = _whatWasHit()
-	#if whatever we hit has the "hurt" method. damage them
-	if result and result.collider.has_method("hurt"):
-		result.collider.hurt(damage, result.normal) #the normal will spray blood in the hit direction
+	#if whatever we hit has the "on_hit" method. damage them
+	if result and result.collider.has_method("on_hit"):
+		result.collider.on_hit(damage, result.normal) #the normal will spray blood in the hit direction
 	#if hit something that can't be hurt, instantiate the particle effect
 	elif result: 
 		_createAndOrientParticleEffect(result)
@@ -22,9 +22,9 @@ func _whatWasHit() -> Dictionary:
 		#take the result of everything we've hit on the following layers in a line
 		#from the player pos to the player position - global transform * distance,
 		#store all the data of what we hit
-		#the 1 + 2 + 4 comes from the values of the evironment, characters, and hitboxes layers
+		#the 1 + 4 comes from the values of the evironment and hitboxes layers
 	var result: Dictionary = space_state.intersect_ray(player_pos, player_pos - global_transform.basis.z * distance,
-		bodies_to_exclude, 1 + 2 + 4, true, true)
+		bodies_to_exclude, 1 + 4, true, true)
 	return result
 
 func _createAndOrientParticleEffect(result: Dictionary) -> void:

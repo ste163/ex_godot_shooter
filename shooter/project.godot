@@ -24,6 +24,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Weapons/Emitter_Melee.gd"
 }, {
+"base": "Area",
+"class": "HitBox",
+"language": "GDScript",
+"path": "res://src/Characters/Enemies/HitBox.gd"
+}, {
+"base": "Character",
+"class": "Monster",
+"language": "GDScript",
+"path": "res://src/Characters/Enemies/Monster.gd"
+}, {
 "base": "Spatial",
 "class": "Weapon",
 "language": "GDScript",
@@ -33,6 +43,8 @@ _global_script_class_icons={
 "Character": "",
 "Emitter_Bullet": "",
 "Emitter_Melee": "",
+"HitBox": "",
+"Monster": "",
 "Weapon": ""
 }
 

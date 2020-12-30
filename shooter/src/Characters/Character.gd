@@ -1,5 +1,6 @@
-extends KinematicBody
 class_name Character
+extends KinematicBody
+#Handle character movement
 
 export var move_accel: float = 4.0
 export var max_speed: float = 25.0
@@ -13,7 +14,7 @@ var _velocity: Vector3
 var _snap_vec: Vector3 #Controls how we "stick" to the ground
 export var ignore_rotation: bool = false #Allows us to tell Characters (specifically NPCs) to move relative to the world
 
-signal movement_info 
+signal movement_info
 
 var _frozen: bool = false #When a character dies, we'll be able to freeze them in place
 
@@ -58,3 +59,6 @@ func freeze() -> void:
 
 func unfreeze() -> void:
 	_frozen = false
+
+
+
