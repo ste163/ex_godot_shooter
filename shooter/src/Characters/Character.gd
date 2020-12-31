@@ -30,7 +30,7 @@ func _calc_movement(delta: float) -> void:
 	
 	if _frozen:
 		return
-	if not ignore_rotation:
+	if not ignore_rotation: #we ONLY want to ignore rotation for AI
 		_cur_move_vec = _cur_move_vec.rotated(Vector3.UP, self.rotation.y)
 	#Velocity is how many units we move per second
 	#Times our acceleration by where we're facing

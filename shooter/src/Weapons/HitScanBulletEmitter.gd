@@ -1,9 +1,13 @@
 extends Emitter_Bullet
 
 #Preload allows us to load this file when the game starts, not the scene
-var hit_effect: PackedScene = preload("res://src/Effects/EffectHitBullet.tscn")
+const hit_effect: PackedScene = preload("res://src/Effects/EffectHitBullet.tscn")
 
 export var distance: int = 10000
+
+func _ready() -> void:
+	hit_effect.instance()
+
 
 func fire() -> void:
 	var result: Dictionary

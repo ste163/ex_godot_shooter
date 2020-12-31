@@ -5,13 +5,16 @@ extends Character
 
 enum STATES {IDLE, CHASE, ATTACK, DEAD}
 
-export var sight_angle: float = 45.0
+export var sight_angle: float = 60.0
+export var turn_speed: float = 250.0
 
-var cur_state = STATES.IDLE
 var player: KinematicBody
+var nav_path: Array = []
+var cur_state = STATES.IDLE
 
 onready var anim_player = $Graphics/AnimationPlayer
 onready var health_manager = $ManagerHealth
+onready var nav: Navigation = get_parent() #get the Navigation mesh
 
 func _ready() -> void:
 	player = get_tree().get_nodes_in_group("player")[0] #get the player node, which is the only item in the array
@@ -35,7 +38,7 @@ func set_state_idle() -> void:
 
 func set_state_chase() -> void:
 	cur_state = STATES.CHASE
-	print("ALERTED")
+	anim_player.play("walk_loop", 0.2)
 
 func set_state_attack() -> void:
 	cur_state = STATES.ATTACK
@@ -43,13 +46,29 @@ func set_state_attack() -> void:
 func set_state_dead() -> void:
 	cur_state = STATES.DEAD
 	anim_player.play("die")
+	$CollisionShape.disabled = true
+	freeze()
 
 func process_state_idle(delta: float) -> void:
 	if can_see_player():
 		set_state_chase()
 
 func process_state_chase(delta: float) -> void:
-	pass
+	var player_pos: Vector3 = player.global_transform.origin
+	var monster_pos: Vector3 = global_transform.origin
+	var goal_pos: Vector3 = player_pos
+	var dir: Vector3
+	
+	nav_path = nav.get_simple_path(monster_pos, player_pos)
+	
+	if nav_path.size() > 1: #1 is the monster's current position
+		goal_pos = nav_path[1]
+	
+	dir = goal_pos - monster_pos
+	dir.y = 0 #remove the Y value so monster movies in a 2D vector
+	
+	set_move_vec(dir) #comes from Character
+	face_dir(dir, delta)
 
 func process_state_attack(delta: float) -> void:
 	pass
@@ -96,6 +115,18 @@ func on_hit(damage: int, dir: Vector3) -> void:
 		set_state_chase()
 	health_manager.hurt(damage, dir)
 
+#face_dir has a lot of math I don't understand and wasn't explained
+func face_dir(dir: Vector3, delta: float) -> void:
+	var angle_diff = global_transform.basis.z.angle_to(dir)
+	#turn_right works by doing some math that returns a positive number if the monster is facing right
+	#and a negative when looking left.
+	var turn_right = sign(global_transform.basis.x.dot(dir))
+	#turn_speed * delta is how fast monster can turn in a frame
+	if abs(angle_diff) < deg2rad(turn_speed) * delta: #this checks to see if we'll turn to far in a frame
+		rotation.y = atan2(dir.x, dir.z)
+	else:
+		rotation.y += deg2rad(turn_speed) * delta * turn_right
+		
 func _prepare_hitboxes() -> void:
 	#get all our bone attachment hitboxes
 	var bone_attachments: Array = $Graphics/Armature/Skeleton.get_children()
