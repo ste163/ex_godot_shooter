@@ -21,6 +21,7 @@ export var mouse_sensitivity: float = 0.2
 onready var _camera = $Camera
 onready var _manager_health = $ManagerHealth
 onready var _manager_weapon = $Camera/ManagerWeapon
+var muzzleflash = preload("res://raw_assets/raw_meshes_flash/muzzleflash1.glb")
 
 var dead: bool = false
 

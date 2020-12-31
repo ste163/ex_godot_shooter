@@ -54,6 +54,10 @@ config/name="Shooter"
 run/main_scene="res://src/Levels/Level00_Test.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+ParticlesCache="*res://src/Autoload/ParticlesCache.tscn"
+
 [debug]
 
 gdscript/warnings/unsafe_method_access=true
